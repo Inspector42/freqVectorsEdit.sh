@@ -6,7 +6,8 @@ freqVectorsEdit [ -bhmk ] [ -show ]
 DESCRIPTION
 
 
-	freqVectorsEdit.sh is a bash script to add/replace FrequencyVectors in plists in X86PlatformPlugin.kext/Contents/Resources/
+	freqVectorsEdit.sh is a bash script to add/replace FrequencyVectors in plists in
+	X86PlatformPlugin.kext/Contents/Resources/
 	This kext can be found in: /System/Library/Extensions/IOPlatformPluginFamily.kext/Contents/PlugIns
 
 	The target plist (example: Mac-F60DEB81FF30ACF6.plist for the MacPro6,1) is selected based on the used board-id.
@@ -35,7 +36,8 @@ DESCRIPTION
 
 	-k	kext path (example: /System/Library/Extensions)
         	Overrides path to kernel extension to allow editing of frequency vectors with SIP enabled
-		This will of course require further processing but comes in handy if resulting patched plist is used for CPUFriend
+		This will of course require further processing but comes in handy if resulting patched plist is used
+		for CPUFriend
 
 
 

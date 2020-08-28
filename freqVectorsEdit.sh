@@ -3,7 +3,7 @@
 #
 # Script (freqVectorsEdit.sh) to add 'FrequencyVectors' from a source plist to Mac-F60DEB81FF30ACF6.plist
 #
-# Version 3.3 - Copyright (c) 2013-2017 by Pike R. Alpha and 2020 by Jens S. Wondrak
+# Version 3.3 - Copyright (c) 2013-2017 by Pike R. Alpha and 2020 by Jens S. Wondrak (Inspector42)
 #
 # Updates:
 #			- v0.5	Show Mac model info (Pike R. Alpha, December 2013)
@@ -67,7 +67,7 @@
 #			-       Show matching board-id in bold.
 #			-       Show Frequencies and HWP setting.
 #			- v3.2  Renamed _listmatchingFiles to _selectSourceResourceFile()
-#           - v3.3  Added option -k to override path to Extension folder to enable use in directories not locked bz SIP
+#           - v3.3  Added option -k to override path to Extension folder to enable use in directories not locked by SIP (Insepctor42, August 2020)
 #
 #
 # Known issues:
