@@ -3,7 +3,7 @@
 #
 # Script (freqVectorsEdit.sh) to add 'FrequencyVectors' from a source plist to Mac-F60DEB81FF30ACF6.plist
 #
-# Version 3.2 - Copyright (c) 2013-2017 by Pike R. Alpha
+# Version 3.3 - Copyright (c) 2013-2017 by Pike R. Alpha and 2020 by Jens S. Wondrak
 #
 # Updates:
 #			- v0.5	Show Mac model info (Pike R. Alpha, December 2013)
@@ -67,6 +67,7 @@
 #			-       Show matching board-id in bold.
 #			-       Show Frequencies and HWP setting.
 #			- v3.2  Renamed _listmatchingFiles to _selectSourceResourceFile()
+#           - v3.3  Added option -k to override path to Extension folder to enable use in directories not locked bz SIP
 #
 #
 # Known issues:
@@ -85,7 +86,7 @@
 #
 # Script version info.
 #
-gScriptVersion=3.2
+gScriptVersion=3.3
 
 #
 # Path and filename setup.
@@ -314,7 +315,7 @@ function _toLowerCase()
 
 function _showHeader()
 {
-  printf "${STYLE_BOLD}freqVectorsEdit.sh${STYLE_RESET} v${gScriptVersion} Copyright (c) 2013-$(date "+%Y") by Pike R. Alpha.\n"
+  printf "${STYLE_BOLD}freqVectorsEdit.sh${STYLE_RESET} v${gScriptVersion} Copyright (c) 2013-$(date "+%Y") by Pike R. Alpha and 2020 by Jens S. Wondrak.\n"
   echo '-----------------------------------------------------------------'
   printf "${STYLE_BOLD}Bugs${STYLE_RESET} > ${STYLE_BLUE_FG}https://github.com/Piker-Alpha/freqVectorsEdit.sh/issues${STYLE_RESET} <\n\n"
 }
@@ -1415,6 +1416,7 @@ function _getScriptArguments()
           printf "          Broadwell\n"
           printf "          Skylake\n"
           printf "          KabyLake\n"
+          printf "       -${STYLE_BOLD}k${STYLE_RESET}ext path (example: /System/Library/Extensions)\n"
           #
           # Stop script (success).
           #
@@ -1468,7 +1470,7 @@ function _getScriptArguments()
             #
             # Is this a valid flag?
             #
-            if [[ "${flag}" =~ ^[-bdm]+$ ]];
+            if [[ "${flag}" =~ ^[-bdmk]+$ ]];
               then
                 #
                 # Yes. Figure out what flag it is.
@@ -1515,6 +1517,26 @@ function _getScriptArguments()
                           _invalidArgumentError "-m $1"
                       fi
                       ;;
+                      
+                  -k) shift
+
+                      if [ -a "$1" ];
+                         then
+                           if [[ $gExtensionsDirectory != "$1" ]];
+                              then
+                                gExtensionsDirectory="$1"
+                                gResourcePath="${gExtensionsDirectory}/IOPlatformPluginFamily.kext/Contents/PlugIns/X86PlatformPlugin.kext/Contents/Resources"
+                                if [ -a "$gResourcePath" ];
+                                  then
+                                    _PRINT_MSG "Override value: (-k) kext path, now using: ${gExtensionsDirectory}!"
+                                  else
+                                    _invalidArgumentError "-k resource does not exists"
+                                fi
+                           fi
+                         else
+                           _invalidArgumentError "-k $1"
+                       fi
+                       ;;
 
                   *) _invalidArgumentError "$1"
                      ;;
@@ -1563,7 +1585,8 @@ function main()
   fi
 
   _DEBUG_PRINT "Used board-id: ${gBoardID}"
-  _DEBUG_PRINT "Used model...: ${gModelID}\n"
+  _DEBUG_PRINT "Used model...: ${gModelID}"
+  _DEBUG_PRINT "Used path....: ${gExtensionsDirectory}\n"
 
   _selectSourceResourceFile
   #

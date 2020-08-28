@@ -1,9 +1,43 @@
-Introduction
+SYNOPSIS
 
-freqVectorsEdit.sh is a bash script to add/replace FrequencyVectors in plists in X86PlatformPlugin.kext/Contents/Resources/
-This kext can be found in: /System/Library/Extensions/IOPlatformPluginFamily.kext/Contents/PlugIns
+freqVectorsEdit [ -bhmk ] [ -show ]
 
-The target plist (example: Mac-F60DEB81FF30ACF6.plist for the MacPro6,1) is selected based on the used board-id.
+
+DESCRIPTION
+
+
+	freqVectorsEdit.sh is a bash script to add/replace FrequencyVectors in plists in X86PlatformPlugin.kext/Contents/Resources/
+	This kext can be found in: /System/Library/Extensions/IOPlatformPluginFamily.kext/Contents/PlugIns
+
+	The target plist (example: Mac-F60DEB81FF30ACF6.plist for the MacPro6,1) is selected based on the used board-id.
+
+	In the current version, the following options are available
+
+	The following options are available:
+
+
+	-b 	board-id (example: Mac-F60DEB81FF30ACF6)
+		Overrides the board-id obtained from the system settings in case the editing it performed on a 3rd computer
+		default: board-id of current running systems specified in SMBIOS settings
+
+	-d	debug
+		0 = no debug output (default)
+		1 = debug output (very verbose)
+	
+	-m	model (example: MacPro6,1)
+		Overrides the model obtained from the system settings
+
+ 	-show	show supported board-id and model combinations
+          	Haswell
+		Broadwell
+		Skylake
+		KabyLake
+
+	-k	kext path (example: /System/Library/Extensions)
+        	Overrides path to kernel extension to allow editing of frequency vectors with SIP enabled
+		This will of course require further processing but comes in handy if resulting patched plist is used for CPUFriend
+
+
 
 
 1) Start script by entering:
