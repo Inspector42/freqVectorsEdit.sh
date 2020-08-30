@@ -1,6 +1,6 @@
 SYNOPSIS
 
-freqVectorsEdit [ -bhmk ] [ -show ]
+freqVectorsEdit [-h] [-d <0|1>] [-b <BOARD-ID>] [-m <MODEL>] [-k <WORKINGDIR>] [-show [Haswell|Broadwell|SkyLake|KabyLake]]
 
 
 DESCRIPTION
@@ -16,9 +16,12 @@ DESCRIPTION
 
 	The following options are available:
 
+	-h	help, shows a list of available options
+
 
 	-b 	board-id (example: Mac-F60DEB81FF30ACF6)
-		Overrides the board-id obtained from the system settings in case the editing it performed on a 3rd computer
+		Overrides the board-id obtained from the system settings in case the editing it performed on a
+		3rd computer
 		default: board-id of current running systems specified in SMBIOS settings
 
 	-d	debug
@@ -36,13 +39,20 @@ DESCRIPTION
 
 	-k	kext path (example: /System/Library/Extensions)
         	Overrides path to kernel extension to allow editing of frequency vectors with SIP enabled
-		This will of course require further processing but comes in handy if resulting patched plist is used
-		for CPUFriend
+		in the specified working directory. This requires a copy of IOPlatformPluginFamily.kext  to reside in the
+		specified directory . This will of course require further processing but comes
+		in handy if resulting patched plist is used for CPUFriend
+
+In order to use freqVectorsEdit.sh with enabled SIP, you need to first copy "IOPlatformPluginFamily.kext" from "/System/Library/Extensions".
+Let's assume you are using /Users/Documents/Hackintosh as your working directory.
+The you can then use
+
+	cp -a /System/Library/Extensions/IOPlatformPluginFamily.kext /Users/Documents/Hackintosh/IOPlatformPluginFamily.kext
+
+Now you continue as laid out below using ./freqVectorsEdit.sh -k /Users/Documents/Hackintosh.
 
 
-
-
-1) Start script by entering:
+1) Start script by entering (please use the -h option to show help and list of available further options as listed above):
 
 ./freqVectorsEdit.sh
 
@@ -53,27 +63,49 @@ Password: <enter root password>
 
 3) Now you see something like this:
 
-freqVectorsEdit.sh v1.3 Copyright (c) 2013-2014 by Pike R. Alpha.
------------------------------------------------------------------
-Bugs > https://github.com/Piker-Alpha/freqVectorsEdit.sh/issues <
+	freqVectorsEdit.sh v3.3 Copyright (c) 2013-2020 by Pike R. Alpha and 2020 by Jens S. Wondrak.
+	-----------------------------------------------------------------
+	Bugs > https://github.com/Piker-Alpha/freqVectorsEdit.sh/issues <
 
-Available resource files (plists) with FrequencyVectors:
+	Available resource files (plists) with FrequencyVectors:
 
- [  1 ] Mac-031B6874CF7F642A.plist / iMac14,1
- [  2 ] Mac-189A3D4F975D5FFC.plist / MacBookPro11,1
- [  3 ] Mac-27ADBB7B4CEE8E61.plist / iMac14,2
- [  4 ] Mac-2BD1B31983FE1663.plist / MacBookPro11,3
- [  5 ] Mac-35C1E88140C3E6CF.plist / MacBookAir6,1
- [  6 ] Mac-35C5E08120C7EEAF.plist / Macmini7,1
- [  7 ] Mac-3CBD00234E554E41.plist / MacBookPro11,2
- [  8 ] Mac-42FD25EABCABB274.plist / iMac15,1
- [  9 ] Mac-77EB7D7DAF985301.plist / iMac14,3
- [ 10 ] Mac-7DF21CB3ED6977E5.plist / MacBookAir6,2
- [ 11 ] Mac-81E3E92DD6088272.plist / iMac14,4
- [ 12 ] Mac-F60DEB81FF30ACF6.plist / MacPro6,1
- [ 13 ] Mac-FA842E06C61E91C5.plist / iMac15,2
+	 [  1 ] Mac-EE2EBD4B90B839A8.plist (MacBook10,1 @ 3000 HWP/3200 HWP/3600 HWP)
+	 [  2 ] Mac-BE0E8AC46FE800CC.plist (MacBook8,1 @ 2400/2600/2900)
+	 [  3 ] Mac-42FD25EABCABB274.plist (iMac15,1)
+	 [  4 ] Mac-189A3D4F975D5FFC.plist (MacBookPro11,1)
+	 [  5 ] Mac-90BE64C3CB5A9AEB.plist (Unknown Model @ 3000/3200/3600)
+	 [  6 ] Mac-BE088AF8C5EB4FA2.plist (iMac18,3)
+	 [  7 ] Mac-65CE76090165799A.plist (iMac17,1)
+	 [  8 ] Mac-6FEBD60817C77D8A.plist (Unknown Model @ 3800 HWP/4100 HWP)
+	 [  9 ] Mac-E43C1C25D4880AD6.plist (MacBookPro12,1)
+	 [ 10 ] Mac-FA842E06C61E91C5.plist (iMac15,1)
+	 [ 11 ] Mac-FFE5EF870D7BA81A.plist (iMac16,2)
+	 [ 12 ] Mac-CAD6701F7CEA0921.plist (MacBookPro14,2 @ 3500 HWP/3700 HWP/4000 HWP)
+	 [ 13 ] Mac-226CB3C6A851A671.plist (Unknown Model @ 3600 HWP)
+	 [ 14 ] Mac-747B1AEFF11738BE.plist (Unknown Model @ 3000/3200/3600)
+	 [ 15 ] Mac-7DF21CB3ED6977E5.plist (MacBookAir6,2)
+	 [ 16 ] Mac-4B682C642B45593E.plist (iMac18,1)
+	 [ 17 ] Mac-27AD2F918AE68F61.plist (Unknown Model HWP)
+	 [ 18 ] Mac-F305150B0C7DEEEF.plist (Unknown Model @ 2400/2600/2900)
+	 [ 19 ] Mac-7BA5B2DFE22DDD8C.plist (Unknown Model @ 3600 HWP/4000 HWP/4100 HWP/4500 HWP)
+	 [ 20 ] Mac-E7203C0F68AA0004.plist (Unknown Model @ 3900 HWP/4500 HWP)
+	 [ 21 ] Mac-63001698E7A34814.plist (Unknown Model @ 3600 HWP/4100 HWP/4600 HWP)
+	 [ 22 ] Mac-9F18E312C5C2BF0B.plist (MacBookAir7,1 @ 2700/3200)
+	 [ 23 ] Mac-112818653D3AABFC.plist (Unknown Model @ 3000/3200/3600)
+	 [ 24 ] Mac-031B6874CF7F642A.plist (iMac14,1)
 
-Please choose the desired plist for your hardware (Exit/1-13) ?
+	Please choose the desired plist for your hardware (Exit/1-24) ?
+
+Note that the model names in brackets rely on the models.cfg file that is part of https://github.com/Piker-Alpha/ssdtPRGen.sh.
+It only receives infrequent updates and hence the newest Macs may show up as "Unknown Model".
+
+Unknown Models are liste in red font, those that match your system's max turbo frequency will show up in green font.
+
+Currently multiple entries for the same board-id are also not supported. The script creates individual temporary files for each entries
+with a filename boardid-tttt.bin, in which tttt represents the maximum turbo frequency. However, the other routines can only utilise
+temporary files boardid.bin and therefore results from selecting a boardid with multiple entries is not defined.
+
+LFM patch is applied based on current system setting using "sysctl -nx machdep.xcpm.hard_plimit_min_100mhz_ratio"
 
 4) Let's use '4' for this run and press enter. After this you see this: 
 
@@ -87,4 +119,4 @@ Do you want to reboot now? (y/n) n
 
 6) Let's use 'n' for this run and press enter. You normally would select 'y'.
 
-
+7) If you used 

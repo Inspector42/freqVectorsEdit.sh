@@ -67,7 +67,7 @@
 #			-       Show matching board-id in bold.
 #			-       Show Frequencies and HWP setting.
 #			- v3.2  Renamed _listmatchingFiles to _selectSourceResourceFile()
-#           - v3.3  Added option -k to override path to Extension folder to enable use in directories not locked by SIP (Insepctor42, August 2020)
+#			- v3.3  Added option -k to override path to Extension folder to enable use in directories not locked by SIP (Inspector42, August 2020)
 #
 #
 # Known issues:
@@ -601,7 +601,7 @@ function _getResourceFiles()
 
   if [[ "${#gTargetFileNames[@]}" -eq 0 ]];
     then
-      _PRINT_MSG 'Error: FrequencyVector data found in X86PlatformPlugin.kext!'
+      _PRINT_MSG 'Error: No FrequencyVector data found in X86PlatformPlugin.kext!'
       _ABORT
     else
       _DEBUG_PRINT "${#gTargetFileNames[@]} plists found with FrequencyVectors"
@@ -1530,7 +1530,7 @@ function _getScriptArguments()
                                   then
                                     _PRINT_MSG "Override value: (-k) kext path, now using: ${gExtensionsDirectory}!"
                                   else
-                                    _invalidArgumentError "-k resource does not exists"
+                                    _invalidArgumentError "-k resource does not exist"
                                 fi
                            fi
                          else
