@@ -111,12 +111,14 @@ LFM patch is applied based on current system setting using "sysctl -nx machdep.x
 
 Triggering a kernelcache refresh ...
 
-Do you want to open Mac-F60DEB81FF30ACF6.plist (y/n)? n
+	Do you want to open Mac-F60DEB81FF30ACF6.plist (y/n)? n
 
 5) Let's use 'n' for this run and press enter. Now it asks you if you want to reboot:
 
-Do you want to reboot now? (y/n) n
+	Do you want to reboot now? (y/n) n
 
 6) Let's use 'n' for this run and press enter. You normally would select 'y'.
 
-7) If you used 
+7) If you used the -k option then of course the modified IOPlatformPluginFamily.kext will require further processin.
+   When manually copying it back into the system SIP must be disabled and an update of the pre-linked kernel needs to be triggered manually using @touch /System/Library/Extensions" before reboot.
+   Else the modified plists residing within the IOPlatformPluginFamily.kext can be used to create the necessary resource files for CPUFriend. 
