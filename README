@@ -10,7 +10,11 @@ DESCRIPTION
 	X86PlatformPlugin.kext/Contents/Resources/
 	This kext can be found in: /System/Library/Extensions/IOPlatformPluginFamily.kext/Contents/PlugIns
 
-	The target plist (example: Mac-F60DEB81FF30ACF6.plist for the MacPro6,1) is selected based on the used board-id.
+	The target plist (example: Mac-F60DEB81FF30ACF6.plist for the MacPro6,1) is selected based on the board-id that is specified in the
+	SMBIOS settings of the system on which this script is launched.
+
+	It should be noted that modifying the kext with this script invalidates the signature of the kext and requires at
+	least partially disabled SIP to be loaded on newer versions of macOS.
 
 	In the current version, the following options are available
 
@@ -19,17 +23,19 @@ DESCRIPTION
 	-h	help, shows a list of available options
 
 
-	-b 	board-id (example: Mac-F60DEB81FF30ACF6)
-		Overrides the board-id obtained from the system settings in case the editing it performed on a
-		3rd computer
+	-b 	board-id (example: Mac-F60DEB81FF30ACF6) identifying matching plist to be overwritten by the script in the kext
+		Overrides the board-id obtained from the system settings that determines, which plist within the kext is overwritten
+		Useful in case the editing it performed on a 3rd computer different from the target system
 		default: board-id of current running systems specified in SMBIOS settings
 
 	-d	debug
 		0 = no debug output (default)
 		1 = debug output (very verbose)
 	
-	-m	model (example: MacPro6,1)
-		Overrides the model obtained from the system settings
+	-m	model (example: MacPro6,1) identifying matching plist to be overwritten by the script in the kext
+		Overrides the model obtained from the system settings that determines, which plist within the kext is overwritten
+		Useful in case the editing it performed on a 3rd computer different from the target system
+		default: model of current running systems specified in SMBIOS settings
 
  	-show	show supported board-id and model combinations
           	Haswell
@@ -37,11 +43,12 @@ DESCRIPTION
 		Skylake
 		KabyLake
 
-	-k	kext path (example: /System/Library/Extensions)
+	-k	kext path (example: ~/Documents)
         	Overrides path to kernel extension to allow editing of frequency vectors with SIP enabled
 		in the specified working directory. This requires a copy of IOPlatformPluginFamily.kext  to reside in the
 		specified directory . This will of course require further processing but comes
 		in handy if resulting patched plist is used for CPUFriend
+		default: /System/Library/Extensions
 
 In order to use freqVectorsEdit.sh with enabled SIP, you need to first copy "IOPlatformPluginFamily.kext" from "/System/Library/Extensions".
 Let's assume you are using /Users/Documents/Hackintosh as your working directory.
